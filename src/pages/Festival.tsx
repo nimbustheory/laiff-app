@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Calendar, MapPin, Ticket, Star, Clock, Film, Award, Sparkles, Navigation, ExternalLink } from 'lucide-react';
-
-// Dynamically import mapbox to handle loading errors
-let mapboxgl: typeof import('mapbox-gl') | null = null;
+import { Calendar, MapPin, Ticket, Star, Clock, Film, Award, Sparkles, Navigation } from 'lucide-react';
 
 export default function Festival() {
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -32,17 +29,12 @@ export default function Festival() {
       if (map.current || !mapContainer.current) return;
 
       try {
-        // Dynamically import mapbox-gl
-        const mapboxModule = await import('mapbox-gl');
-        mapboxgl = mapboxModule.default;
-        
-        // Import CSS
+        const mapboxgl = await import('mapbox-gl');
         await import('mapbox-gl/dist/mapbox-gl.css');
         
-        // Set access token
-        mapboxgl.accessToken = 'pk.eyJ1IjoibmltYnVzdGhlb3J5IiwiYSI6ImNtaWxkMTd2djFuZ3EzZHB4OWx3MmpoOGoifQ.ZTR7eI7r19f2ozCTqzWk4w';
+        (mapboxgl as any).accessToken = 'pk.eyJ1IjoibmltYnVzdGhlb3J5IiwiYSI6ImNtaWxkMTd2djFuZ3EzZHB4OWx3MmpoOGoifQ.ZTR7eI7r19f2ozCTqzWk4w';
 
-        map.current = new mapboxgl.Map({
+        map.current = new (mapboxgl as any).Map({
           container: mapContainer.current,
           style: 'mapbox://styles/mapbox/dark-v11',
           center: [-118.2492, 34.0505],
@@ -52,7 +44,6 @@ export default function Festival() {
         map.current.on('load', () => {
           setMapLoaded(true);
           
-          // Add markers for each venue
           venues.forEach((venue) => {
             const el = document.createElement('div');
             el.className = 'venue-marker';
@@ -70,21 +61,20 @@ export default function Festival() {
             `;
             el.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3" fill="#9F1239"/></svg>';
 
-            new mapboxgl!.Marker(el)
+            new (mapboxgl as any).Marker(el)
               .setLngLat(venue.coordinates)
               .setPopup(
-                new mapboxgl!.Popup({ offset: 25 }).setHTML(`
+                new (mapboxgl as any).Popup({ offset: 25 }).setHTML(`
                   <div style="padding: 8px; font-family: system-ui;">
                     <h3 style="font-weight: bold; margin: 0 0 4px 0; color: #9F1239;">${venue.name}</h3>
                     <p style="margin: 0; font-size: 12px; color: #666;">${venue.address}</p>
                   </div>
                 `)
               )
-              .addTo(map.current!);
+              .addTo(map.current);
           });
 
-          // Add navigation controls
-          map.current.addControl(new mapboxgl!.NavigationControl(), 'top-right');
+          map.current.addControl(new (mapboxgl as any).NavigationControl(), 'top-right');
         });
 
         map.current.on('error', () => {
@@ -186,7 +176,6 @@ export default function Festival() {
         </h2>
         <div className="card-noir overflow-hidden mb-4">
           {mapError ? (
-            // Fallback static map image
             <a 
               href="https://www.google.com/maps/place/Million+Dollar+Theatre/@34.0497,-118.2491,17z"
               target="_blank"
@@ -231,7 +220,7 @@ export default function Festival() {
                     <p className="text-xs text-gray-500">{venue.address}</p>
                     <p className="text-xs text-laiff-burgundy mt-1">{venue.description}</p>
                   </div>
-                  <a
+                  
                     href={`https://www.google.com/maps/dir/?api=1&destination=${venue.coordinates[1]},${venue.coordinates[0]}`}
                     target="_blank"
                     rel="noopener noreferrer"
