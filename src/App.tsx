@@ -67,7 +67,7 @@ function AppContent() {
   // Consumer Layout - Mobile (390px max) with Desktop Presentation Wrapper
   return (
     <DesktopWrapper>
-      <div className="min-h-screen bg-laiff-cream" style={{ maxWidth: '390px', margin: '0 auto' }}>
+      <div className="min-h-screen desktop-app-content bg-laiff-cream" style={{ maxWidth: '390px', margin: '0 auto' }}>
         <ConsumerHeader
           onNotificationsClick={() => setShowNotifications(true)}
           onSettingsClick={() => setShowSettings(true)}

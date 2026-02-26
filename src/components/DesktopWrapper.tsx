@@ -65,24 +65,26 @@ export default function DesktopWrapper({ children }: DesktopWrapperProps) {
 
       {/* Right Panel */}
       <aside className="desktop-panel desktop-panel-right">
-        <div className="flex flex-col items-start pt-8 max-w-xs">
-          {/* Curved arrow SVG pointing toward the shield icon */}
+        <div className="flex flex-col items-start pt-4 max-w-xs">
+          {/* Curved arrow pointing left toward the shield icon in the header */}
           <svg
-            width="64"
-            height="80"
-            viewBox="0 0 64 80"
+            width="80"
+            height="60"
+            viewBox="0 0 80 60"
             fill="none"
-            className="mb-4 -ml-8"
+            className="mb-3 -ml-10"
           >
+            {/* Curve from right to upper-left */}
             <path
-              d="M58 4C42 4 12 8 8 40C4 68 2 72 2 76"
+              d="M74 50C60 46 30 36 10 12"
               stroke="#D4AF37"
               strokeWidth="2"
               strokeLinecap="round"
               fill="none"
             />
+            {/* Arrowhead pointing upper-left */}
             <path
-              d="M8 70L2 78L-2 68"
+              d="M6 22L8 8L20 14"
               stroke="#D4AF37"
               strokeWidth="2"
               strokeLinecap="round"
