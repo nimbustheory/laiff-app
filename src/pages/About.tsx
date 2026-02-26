@@ -1,4 +1,5 @@
 import { Award, Film, Users, Heart, MapPin, Calendar, Star, ExternalLink } from 'lucide-react';
+import FallbackImage from '../components/FallbackImage';
 
 export default function About() {
   const stats = [
@@ -89,10 +90,11 @@ export default function About() {
         </h2>
         <div className="card-noir overflow-hidden">
           <div className="h-40 relative overflow-hidden">
-            <img 
-              src="/images/venues/million-dollar-interior.jpg" 
+            <FallbackImage
+              src="/images/venues/million-dollar-interior.jpg"
               alt="Million Dollar Theatre Interior"
               className="w-full h-full object-cover"
+              type="venue"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             <div className="absolute bottom-3 left-4 text-white">

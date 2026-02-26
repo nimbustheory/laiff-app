@@ -1,5 +1,6 @@
 import { Film, Users, Calendar, Ticket, TrendingUp, Clock, Plus, Send, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { FESTIVAL } from '../../utils/constants';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function AdminDashboard() {
   ];
 
   // Calculate days until festival
-  const festivalDate = new Date('2025-11-14');
+  const festivalDate = new Date(FESTIVAL.startDate);
   const today = new Date();
   const daysUntil = Math.ceil((festivalDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
@@ -37,9 +38,9 @@ export default function AdminDashboard() {
         <div className="absolute inset-0 bg-art-deco opacity-10" />
         <div className="relative flex items-center justify-between">
           <div>
-            <p className="text-white/80 text-sm mb-1">LAIFF 2025</p>
+            <p className="text-white/80 text-sm mb-1">{FESTIVAL.name} {FESTIVAL.year}</p>
             <h2 className="text-2xl font-display font-bold">Festival Countdown</h2>
-            <p className="text-white/80 mt-1">November 14-16, 2025</p>
+            <p className="text-white/80 mt-1">{FESTIVAL.dateDisplay}</p>
           </div>
           <div className="text-right">
             <div className="text-5xl font-display font-bold">{daysUntil > 0 ? daysUntil : 0}</div>

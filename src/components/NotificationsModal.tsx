@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { X, Ticket, Sparkles, Tag, Bell } from 'lucide-react';
 import type { Notification } from '../types';
 
@@ -7,7 +8,13 @@ interface NotificationsModalProps {
 }
 
 export default function NotificationsModal({ isOpen, onClose }: NotificationsModalProps) {
+  const [readIds, setReadIds] = useState<Set<string>>(new Set());
+
   if (!isOpen) return null;
+
+  const markAllRead = () => {
+    setReadIds(new Set(notifications.map(n => n.id)));
+  };
 
   // Sample notifications
   const notifications: Notification[] = [
@@ -54,9 +61,12 @@ export default function NotificationsModal({ isOpen, onClose }: NotificationsMod
     }
   };
 
+  const isRead = (n: Notification) => n.read || readIds.has(n.id);
+  const unreadCount = notifications.filter(n => !isRead(n)).length;
+
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end justify-center" style={{ maxWidth: '390px', margin: '0 auto' }}>
-      <div 
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end justify-center" style={{ maxWidth: '390px', margin: '0 auto' }} onClick={onClose}>
+      <div
         className="bg-white w-full max-h-[80vh] rounded-t-3xl overflow-hidden animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
@@ -64,7 +74,7 @@ export default function NotificationsModal({ isOpen, onClose }: NotificationsMod
         <div className="sticky top-0 bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between">
           <div>
             <h2 className="text-xl font-display font-bold text-laiff-dark">Notifications</h2>
-            <p className="text-sm text-gray-500">{notifications.filter(n => !n.read).length} unread</p>
+            <p className="text-sm text-gray-500">{unreadCount} unread</p>
           </div>
           <button
             onClick={onClose}
@@ -82,7 +92,7 @@ export default function NotificationsModal({ isOpen, onClose }: NotificationsMod
                 <div
                   key={notification.id}
                   className={`p-4 flex gap-3 hover:bg-gray-50 transition-colors cursor-pointer ${
-                    !notification.read ? 'bg-laiff-rose/30' : ''
+                    !isRead(notification) ? 'bg-laiff-rose/30' : ''
                   }`}
                 >
                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
@@ -90,10 +100,10 @@ export default function NotificationsModal({ isOpen, onClose }: NotificationsMod
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
-                      <h3 className={`font-semibold text-sm ${!notification.read ? 'text-laiff-dark' : 'text-gray-700'}`}>
+                      <h3 className={`font-semibold text-sm ${!isRead(notification) ? 'text-laiff-dark' : 'text-gray-700'}`}>
                         {notification.title}
                       </h3>
-                      {!notification.read && (
+                      {!isRead(notification) && (
                         <span className="flex-shrink-0 w-2 h-2 rounded-full bg-laiff-coral" />
                       )}
                     </div>
@@ -112,9 +122,9 @@ export default function NotificationsModal({ isOpen, onClose }: NotificationsMod
         </div>
 
         {/* Mark All Read */}
-        {notifications.some(n => !n.read) && (
+        {unreadCount > 0 && (
           <div className="sticky bottom-0 bg-white border-t border-gray-100 p-4">
-            <button className="w-full py-3 text-laiff-burgundy font-semibold hover:bg-laiff-rose/50 rounded-xl transition-colors">
+            <button onClick={markAllRead} className="w-full py-3 text-laiff-burgundy font-semibold hover:bg-laiff-rose/50 rounded-xl transition-colors">
               Mark All as Read
             </button>
           </div>

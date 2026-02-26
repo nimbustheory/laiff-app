@@ -1,11 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Film, Calendar, Ticket, MapPin, Users, Award, Star, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import type { Movie } from '../types';
 import { tmdbApi } from '../utils/tmdb';
+import { FESTIVAL } from '../utils/constants';
 import MovieCard from '../components/MovieCard';
+import FallbackImage from '../components/FallbackImage';
 
 export default function Home() {
+  const navigate = useNavigate();
   const [nowPlaying, setNowPlaying] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +28,7 @@ export default function Home() {
   };
 
   const handleMovieClick = (_movie: Movie) => {
-    window.location.href = '/films';
+    navigate('/films');
   };
 
   return (
@@ -34,10 +37,11 @@ export default function Home() {
       <div className="relative h-[480px] overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img 
-            src="/images/branding/hero-background.jpg" 
+          <FallbackImage
+            src="/images/branding/hero-background.jpg"
             alt="LAIFF Background"
             className="w-full h-full object-cover"
+            type="hero"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-laiff-dark/90 via-laiff-midnight/80 to-laiff-burgundy/70" />
           {/* Art Deco Pattern Overlay */}
@@ -51,7 +55,7 @@ export default function Home() {
           {/* Gold star decoration */}
           <div className="flex items-center gap-2 mb-4">
             <Star size={16} className="text-laiff-gold fill-laiff-gold" />
-            <span className="text-laiff-gold text-sm tracking-[0.3em] font-medium">NOVEMBER 14-16, 2025</span>
+            <span className="text-laiff-gold text-sm tracking-[0.3em] font-medium">{FESTIVAL.dateDisplay.toUpperCase()}</span>
             <Star size={16} className="text-laiff-gold fill-laiff-gold" />
           </div>
 
@@ -142,10 +146,11 @@ export default function Home() {
         <Link to="/events" className="block">
           <div className="card-noir overflow-hidden">
             <div className="h-48 relative overflow-hidden">
-              <img 
-                src="/images/events/opening-night-gala.jpg" 
+              <FallbackImage
+                src="/images/events/opening-night-gala.jpg"
                 alt="Opening Night Gala"
                 className="w-full h-full object-cover"
+                type="event"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               {/* Decorative elements */}
@@ -191,10 +196,11 @@ export default function Home() {
         <Link to="/about" className="block">
           <div className="card-noir overflow-hidden">
             <div className="h-48 relative overflow-hidden">
-              <img 
-                src="/images/venues/million-dollar-theatre.jpg" 
+              <FallbackImage
+                src="/images/venues/million-dollar-theatre.jpg"
                 alt="Million Dollar Theatre"
                 className="w-full h-full object-cover"
+                type="venue"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <div className="absolute bottom-4 left-4 text-white">

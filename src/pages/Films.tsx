@@ -87,13 +87,13 @@ export default function Films() {
     if (!isSearching) {
       loadMovies(true);
     }
-  }, [category, selectedGenre]);
+  }, [category, selectedGenre]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!isSearching && page > 1) {
       loadMovies();
     }
-  }, [page]);
+  }, [page]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -163,22 +163,24 @@ export default function Films() {
           {/* Back button */}
           <button
             onClick={closeDetails}
+            aria-label="Go back"
             className="absolute top-4 left-4 bg-black/50 text-white p-2.5 rounded-full backdrop-blur-sm hover:bg-black/70 transition-colors"
           >
             <ChevronLeft size={24} />
           </button>
-          
+
           {/* Action buttons */}
           <div className="absolute top-4 right-4 flex gap-2">
             <button
               onClick={() => setIsFavorite(!isFavorite)}
+              aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
               className={`p-2.5 rounded-full backdrop-blur-sm transition-all ${
                 isFavorite ? 'bg-laiff-coral text-white' : 'bg-black/50 text-white hover:bg-black/70'
               }`}
             >
               <Heart size={20} fill={isFavorite ? 'currentColor' : 'none'} />
             </button>
-            <button className="bg-black/50 text-white p-2.5 rounded-full backdrop-blur-sm hover:bg-black/70 transition-colors">
+            <button aria-label="Share film" className="bg-black/50 text-white p-2.5 rounded-full backdrop-blur-sm hover:bg-black/70 transition-colors">
               <Share2 size={20} />
             </button>
           </div>
@@ -418,6 +420,7 @@ export default function Films() {
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
+                  aria-label="Clear search"
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50"
                 >
                   <X size={16} />

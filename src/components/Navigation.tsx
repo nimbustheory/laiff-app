@@ -21,7 +21,7 @@ export default function Navigation() {
 
   return (
     <>
-      <nav className="fixed bottom-0 left-0 right-0 z-50" style={{ maxWidth: '390px', margin: '0 auto' }}>
+      <nav className="fixed bottom-0 left-0 right-0 z-50" style={{ maxWidth: '390px', margin: '0 auto' }} aria-label="Main navigation">
         {/* Gold accent line */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-laiff-gold/50 to-transparent" />
         
@@ -34,6 +34,8 @@ export default function Navigation() {
               <button
                 key={item.path}
                 onClick={() => navigate(item.path)}
+                aria-label={item.label}
+                aria-current={isActive ? 'page' : undefined}
                 className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-300 ${
                   isActive
                     ? 'bg-gradient-to-br from-laiff-burgundy to-laiff-coral text-white shadow-lg'
@@ -54,6 +56,7 @@ export default function Navigation() {
           {/* More Button */}
           <button
             onClick={() => setShowMoreModal(true)}
+            aria-label="More options"
             className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-300 ${
               isMoreActive
                 ? 'bg-gradient-to-br from-laiff-burgundy to-laiff-coral text-white shadow-lg'

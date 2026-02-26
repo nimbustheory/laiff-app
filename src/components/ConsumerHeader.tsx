@@ -37,7 +37,7 @@ export default function ConsumerHeader({
           <button
             onClick={toggleAdmin}
             className="p-2.5 rounded-xl bg-laiff-gold/20 hover:bg-laiff-gold/40 transition-colors text-laiff-gold"
-            title="Enter Admin Mode"
+            aria-label="Enter Admin Mode"
           >
             <Shield size={20} />
           </button>
@@ -46,6 +46,7 @@ export default function ConsumerHeader({
           <button
             onClick={onNotificationsClick}
             className="relative p-2.5 rounded-xl bg-white/10 hover:bg-white/20 transition-colors"
+            aria-label={`Notifications${notificationCount > 0 ? ` (${notificationCount} unread)` : ''}`}
           >
             <Bell size={20} />
             {notificationCount > 0 && (
@@ -59,6 +60,7 @@ export default function ConsumerHeader({
           <button
             onClick={onSettingsClick}
             className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 transition-colors"
+            aria-label="Settings"
           >
             <Settings size={20} />
           </button>

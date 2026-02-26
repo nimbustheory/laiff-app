@@ -9,36 +9,44 @@ interface TMDBResponse {
   total_results: number;
 }
 
+async function tmdbFetch(url: string): Promise<Response> {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`TMDB API error: ${res.status} ${res.statusText}`);
+  }
+  return res;
+}
+
 export const tmdbApi = {
   // Core endpoints
   getNowPlaying: async (page = 1): Promise<TMDBResponse> => {
-    const res = await fetch(`${BASE_URL}/movie/now_playing?api_key=${API_KEY}&page=${page}`);
+    const res = await tmdbFetch(`${BASE_URL}/movie/now_playing?api_key=${API_KEY}&page=${page}`);
     return res.json();
   },
 
   getPopular: async (page = 1): Promise<TMDBResponse> => {
-    const res = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
+    const res = await tmdbFetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
     return res.json();
   },
 
   getTopRated: async (page = 1): Promise<TMDBResponse> => {
-    const res = await fetch(`${BASE_URL}/movie/top_rated?api_key=${API_KEY}&page=${page}`);
+    const res = await tmdbFetch(`${BASE_URL}/movie/top_rated?api_key=${API_KEY}&page=${page}`);
     return res.json();
   },
 
   getUpcoming: async (page = 1): Promise<TMDBResponse> => {
-    const res = await fetch(`${BASE_URL}/movie/upcoming?api_key=${API_KEY}&page=${page}`);
+    const res = await tmdbFetch(`${BASE_URL}/movie/upcoming?api_key=${API_KEY}&page=${page}`);
     return res.json();
   },
 
   getTrending: async (timeWindow: 'day' | 'week' = 'week'): Promise<TMDBResponse> => {
-    const res = await fetch(`${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}`);
+    const res = await tmdbFetch(`${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}`);
     return res.json();
   },
 
   // Search
   searchMovies: async (query: string, page = 1): Promise<TMDBResponse> => {
-    const res = await fetch(
+    const res = await tmdbFetch(
       `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&page=${page}`
     );
     return res.json();
@@ -46,7 +54,7 @@ export const tmdbApi = {
 
   // Details (with append_to_response for cast, trailers, similar)
   getMovieDetails: async (id: number) => {
-    const res = await fetch(
+    const res = await tmdbFetch(
       `${BASE_URL}/movie/${id}?api_key=${API_KEY}&append_to_response=videos,credits,similar,recommendations,reviews`
     );
     return res.json();
@@ -67,7 +75,7 @@ export const tmdbApi = {
     if (params.year) url.searchParams.append('primary_release_year', String(params.year));
     if (params.sortBy) url.searchParams.append('sort_by', params.sortBy);
     if (params.minRating) url.searchParams.append('vote_average.gte', String(params.minRating));
-    const res = await fetch(url.toString());
+    const res = await tmdbFetch(url.toString());
     return res.json();
   },
 

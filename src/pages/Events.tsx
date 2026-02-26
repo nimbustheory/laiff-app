@@ -1,4 +1,6 @@
 import { Calendar, MapPin, Clock, Sparkles, Users, Award, Film, Music } from 'lucide-react';
+import { FESTIVAL } from '../utils/constants';
+import FallbackImage from '../components/FallbackImage';
 
 export default function Events() {
   const events = [
@@ -95,7 +97,7 @@ export default function Events() {
         </div>
         <div className="relative">
           <h1 className="text-3xl font-display font-bold mb-1">Events</h1>
-          <p className="text-white/70 text-sm">November 14-16, 2025</p>
+          <p className="text-white/70 text-sm">{FESTIVAL.dateDisplay}</p>
         </div>
       </div>
 
@@ -116,10 +118,11 @@ export default function Events() {
             )}
             {event.image && (
               <div className="h-32 relative overflow-hidden">
-                <img 
-                  src={event.image} 
+                <FallbackImage
+                  src={event.image}
                   alt={event.title}
                   className="w-full h-full object-cover"
+                  type="event"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               </div>
