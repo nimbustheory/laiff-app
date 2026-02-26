@@ -27,18 +27,18 @@ export default function DesktopWrapper({ children }: DesktopWrapperProps) {
       {/* Left Panel */}
       <aside className="desktop-panel desktop-panel-left">
         <div className="flex flex-col h-full justify-center max-w-xs">
-          <p className="text-[#D4AF37] text-xs font-medium tracking-[0.3em] mb-6">
+          <p className="text-[#D4AF37] text-xs font-medium tracking-[0.3em] mb-3">
             PROTOTYPE DEMO
           </p>
 
           <h1 className="font-display text-4xl font-bold text-white mb-1">
             LAIFF
           </h1>
-          <p className="text-white/60 text-sm mb-10">
+          <p className="text-white/60 text-sm mb-6">
             Film Festival App
           </p>
 
-          <ul className="space-y-5">
+          <ul className="space-y-3">
             {features.map((f) => (
               <li key={f.title} className="flex items-start gap-3">
                 <span className="mt-[7px] w-2 h-2 rounded-full bg-[#D4AF37] flex-shrink-0" />
@@ -50,7 +50,7 @@ export default function DesktopWrapper({ children }: DesktopWrapperProps) {
             ))}
           </ul>
 
-          <div className="mt-auto pt-16">
+          <div className="mt-auto pt-8">
             <div className="w-12 h-px bg-white/20 mb-6" />
             <p className="text-white/30 text-xs tracking-[0.25em] font-medium">
               BUILT BY NIMBUS LABS
