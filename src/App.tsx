@@ -7,6 +7,7 @@ import AdminNavigation from './components/AdminNavigation';
 import NotificationsModal from './components/NotificationsModal';
 import UserSettingsModal from './components/UserSettingsModal';
 import ScrollToTop from './components/ScrollToTop';
+import DesktopWrapper from './components/DesktopWrapper';
 
 // Consumer Pages
 import Home from './pages/Home';
@@ -63,37 +64,39 @@ function AppContent() {
     );
   }
 
-  // Consumer Layout - Mobile (390px max)
+  // Consumer Layout - Mobile (390px max) with Desktop Presentation Wrapper
   return (
-    <div className="min-h-screen bg-laiff-cream" style={{ maxWidth: '390px', margin: '0 auto' }}>
-      <ConsumerHeader
-        onNotificationsClick={() => setShowNotifications(true)}
-        onSettingsClick={() => setShowSettings(true)}
-        notificationCount={2}
-      />
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/films" element={<Films />} />
-        <Route path="/schedule" element={<Schedule />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/membership" element={<Membership />} />
-        <Route path="/festival" element={<Festival />} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/admin/*" element={<Home />} />
-      </Routes>
+    <DesktopWrapper>
+      <div className="min-h-screen bg-laiff-cream" style={{ maxWidth: '390px', margin: '0 auto' }}>
+        <ConsumerHeader
+          onNotificationsClick={() => setShowNotifications(true)}
+          onSettingsClick={() => setShowSettings(true)}
+          notificationCount={2}
+        />
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/films" element={<Films />} />
+          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/membership" element={<Membership />} />
+          <Route path="/festival" element={<Festival />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/admin/*" element={<Home />} />
+        </Routes>
 
-      {/* Modals */}
-      <NotificationsModal 
-        isOpen={showNotifications} 
-        onClose={() => setShowNotifications(false)} 
-      />
-      <UserSettingsModal 
-        isOpen={showSettings} 
-        onClose={() => setShowSettings(false)} 
-      />
-    </div>
+        {/* Modals */}
+        <NotificationsModal
+          isOpen={showNotifications}
+          onClose={() => setShowNotifications(false)}
+        />
+        <UserSettingsModal
+          isOpen={showSettings}
+          onClose={() => setShowSettings(false)}
+        />
+      </div>
+    </DesktopWrapper>
   );
 }
 
