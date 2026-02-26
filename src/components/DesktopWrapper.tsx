@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Shield } from 'lucide-react';
 
 interface DesktopWrapperProps {
   children: ReactNode;
@@ -66,32 +67,10 @@ export default function DesktopWrapper({ children }: DesktopWrapperProps) {
       {/* Right Panel */}
       <aside className="desktop-panel desktop-panel-right">
         <div className="flex flex-col items-start pt-4 max-w-xs">
-          {/* Curved arrow pointing left toward the shield icon in the header */}
-          <svg
-            width="80"
-            height="60"
-            viewBox="0 0 80 60"
-            fill="none"
-            className="mb-3 -ml-10"
-          >
-            {/* Curve from right to upper-left */}
-            <path
-              d="M74 50C60 46 30 36 10 12"
-              stroke="#D4AF37"
-              strokeWidth="2"
-              strokeLinecap="round"
-              fill="none"
-            />
-            {/* Arrowhead pointing upper-left */}
-            <path
-              d="M6 22L8 8L20 14"
-              stroke="#D4AF37"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-            />
-          </svg>
+          {/* Shield icon matching the one in the app header */}
+          <div className="p-3 rounded-xl bg-[#D4AF37]/20 text-[#D4AF37] mb-4">
+            <Shield size={24} />
+          </div>
 
           <h3 className="text-white font-semibold text-sm leading-relaxed mb-2">
             Click the shield icon to toggle to the admin side of the app
