@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Shield } from 'lucide-react';
+import { Shield, Globe } from 'lucide-react';
 
 interface DesktopWrapperProps {
   children: ReactNode;
@@ -77,6 +77,19 @@ export default function DesktopWrapper({ children }: DesktopWrapperProps) {
           </h3>
           <p className="text-white/50 text-xs leading-relaxed">
             Manage films, events, tickets, showtimes & analytics
+          </p>
+        </div>
+
+        <div className="flex flex-col items-start pt-8 max-w-xs">
+          <div className="p-3 rounded-xl bg-[#D4AF37]/20 text-[#D4AF37] mb-4">
+            <Globe size={24} />
+          </div>
+
+          <h3 className="text-white font-semibold text-sm leading-relaxed mb-2">
+            Seamless Integration
+          </h3>
+          <p className="text-white/50 text-xs leading-relaxed">
+            LAIFF Connect is designed to integrate seamlessly with your existing website and ticketing system. Embed it as a progressive web app, sync with your current booking engine, and launch without disrupting any existing workflows.
           </p>
         </div>
       </aside>
