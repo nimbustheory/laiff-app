@@ -45,9 +45,9 @@ function AppContent() {
       }}>
         <AdminNavigation />
         <main style={{ 
-          marginLeft: '256px',
+          marginLeft: '240px',
           minHeight: '100vh',
-          width: 'calc(100vw - 256px)',
+          width: 'calc(100vw - 240px)',
           maxWidth: 'none'
         }}>
           <Routes>
@@ -64,16 +64,27 @@ function AppContent() {
     );
   }
 
-  // Consumer Layout - Mobile (390px max) with Desktop Presentation Wrapper
+  // Consumer Layout - Mobile (390px) inside desktop presentation wrapper
   return (
     <DesktopWrapper>
-      <div className="min-h-screen desktop-app-content bg-laiff-cream" style={{ maxWidth: '390px', margin: '0 auto' }}>
+      <div
+        className="laiff-phone-content bg-laiff-cream"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 60,
+          overflowY: 'auto',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
+      >
         <ConsumerHeader
           onNotificationsClick={() => setShowNotifications(true)}
           onSettingsClick={() => setShowSettings(true)}
           notificationCount={2}
         />
-        <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/films" element={<Films />} />
@@ -86,7 +97,6 @@ function AppContent() {
           <Route path="/admin/*" element={<Home />} />
         </Routes>
 
-        {/* Modals */}
         <NotificationsModal
           isOpen={showNotifications}
           onClose={() => setShowNotifications(false)}
@@ -96,6 +106,7 @@ function AppContent() {
           onClose={() => setShowSettings(false)}
         />
       </div>
+      <Navigation />
     </DesktopWrapper>
   );
 }

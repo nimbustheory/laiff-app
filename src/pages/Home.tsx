@@ -32,9 +32,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-laiff-cream pb-24">
+    <div className="bg-laiff-cream pb-8">
       {/* Hero Section - Hollywood Glamour */}
-      <div className="relative h-[480px] overflow-hidden">
+      <div className="relative overflow-hidden" style={{ minHeight: 300, paddingTop: 40 }}>
         {/* Background Image */}
         <div className="absolute inset-0">
           <FallbackImage
@@ -61,7 +61,7 @@ export default function Home() {
 
           {/* Logo */}
           <div className="mb-2">
-            <h1 className="font-display text-5xl font-bold tracking-tight">
+            <h1 className="font-display font-bold tracking-tight" style={{ fontSize: '3.5rem', lineHeight: 1 }}>
               <span className="text-gradient-gold">LAIFF</span>
             </h1>
           </div>

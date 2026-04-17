@@ -20,7 +20,7 @@ export default function AdminNavigation() {
   ];
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-laiff-dark text-white flex flex-col z-50">
+    <aside className="fixed left-0 top-0 h-screen w-60 bg-laiff-dark text-white flex flex-col z-50">
       {/* Logo Area */}
       <div className="p-6 border-b border-white/10">
         <div className="flex items-center gap-3">

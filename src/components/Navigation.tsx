@@ -15,68 +15,111 @@ export default function Navigation() {
     { path: '/events', icon: Sparkles, label: 'Events' },
   ];
 
-  // Check if any of the "more" pages are active
   const morePages = ['/membership', '/festival', '/support', '/about'];
   const isMoreActive = morePages.includes(location.pathname);
 
   return (
     <>
-      <nav className="fixed bottom-0 left-0 right-0 z-50" style={{ maxWidth: '390px', margin: '0 auto' }} aria-label="Main navigation">
-        {/* Gold accent line */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-laiff-gold/50 to-transparent" />
-        
-        <div className="bg-laiff-dark/95 backdrop-glamour px-2 py-2 flex justify-around items-center">
-          {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            const Icon = item.icon;
+      <nav
+        aria-label="Main navigation"
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 60,
+          zIndex: 50,
+          background: 'rgba(15,15,15,0.96)',
+          backdropFilter: 'blur(20px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+          borderTop: '1px solid rgba(212,175,55,0.2)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-around',
+          padding: '0 4px',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 1,
+            background:
+              'linear-gradient(90deg, transparent, rgba(212,175,55,0.5), transparent)',
+          }}
+        />
 
-            return (
-              <button
-                key={item.path}
-                onClick={() => navigate(item.path)}
-                aria-label={item.label}
-                aria-current={isActive ? 'page' : undefined}
-                className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-300 ${
-                  isActive
-                    ? 'bg-gradient-to-br from-laiff-burgundy to-laiff-coral text-white shadow-lg'
-                    : 'text-white/60 hover:text-white hover:bg-white/10'
-                }`}
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path;
+          const Icon = item.icon;
+          return (
+            <button
+              key={item.path}
+              onClick={() => navigate(item.path)}
+              aria-label={item.label}
+              aria-current={isActive ? 'page' : undefined}
+              style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 2,
+                padding: '6px 4px',
+                border: 'none',
+                background: 'transparent',
+                color: isActive ? '#D4AF37' : 'rgba(255,255,255,0.55)',
+                cursor: 'pointer',
+                height: '100%',
+              }}
+            >
+              <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: isActive ? 700 : 500,
+                  letterSpacing: '0.02em',
+                }}
               >
-                <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
-                <span className="text-[10px] font-medium tracking-wide">{item.label}</span>
-                
-                {/* Active indicator dot */}
-                {isActive && (
-                  <div className="absolute -bottom-1 w-1 h-1 bg-laiff-gold rounded-full" />
-                )}
-              </button>
-            );
-          })}
+                {item.label}
+              </span>
+            </button>
+          );
+        })}
 
-          {/* More Button */}
-          <button
-            onClick={() => setShowMoreModal(true)}
-            aria-label="More options"
-            className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-300 ${
-              isMoreActive
-                ? 'bg-gradient-to-br from-laiff-burgundy to-laiff-coral text-white shadow-lg'
-                : 'text-white/60 hover:text-white hover:bg-white/10'
-            }`}
+        <button
+          onClick={() => setShowMoreModal(true)}
+          aria-label="More options"
+          style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 2,
+            padding: '6px 4px',
+            border: 'none',
+            background: 'transparent',
+            color: isMoreActive ? '#D4AF37' : 'rgba(255,255,255,0.55)',
+            cursor: 'pointer',
+            height: '100%',
+          }}
+        >
+          <MoreHorizontal size={20} strokeWidth={isMoreActive ? 2.5 : 2} />
+          <span
+            style={{
+              fontSize: 10,
+              fontWeight: isMoreActive ? 700 : 500,
+              letterSpacing: '0.02em',
+            }}
           >
-            <MoreHorizontal size={20} strokeWidth={isMoreActive ? 2.5 : 2} />
-            <span className="text-[10px] font-medium tracking-wide">More</span>
-            
-            {isMoreActive && (
-              <div className="absolute -bottom-1 w-1 h-1 bg-laiff-gold rounded-full" />
-            )}
-          </button>
-        </div>
-        
-        {/* Safe area spacer for iOS */}
-        <div className="h-safe-area-inset-bottom bg-laiff-dark" />
+            More
+          </span>
+        </button>
       </nav>
 
-      {/* More Modal */}
       <MoreModal isOpen={showMoreModal} onClose={() => setShowMoreModal(false)} />
     </>
   );
